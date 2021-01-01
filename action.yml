@@ -4,8 +4,8 @@ description: Converts markdown content in a repository into a wiki.
 
 inputs:
 
-  repositoryUrl:
-    description: The url of the repository being operated on
+  repositoryName:
+    description: The repository being operated on
     required: true
 
   defaultBranch:
