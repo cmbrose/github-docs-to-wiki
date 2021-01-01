@@ -234,8 +234,11 @@ Function ProcessWikiFile()
     Set-Content -Path $file.FullName -Value $content -Force
 }
 
+git config --local user.email "action@github.com"
+git config --local user.name "GitHub Action"
+
 Push-Location ..
-Write-Information "Cloning wiki repo..."
+Write-ActionInfo "Cloning wiki repo..."
 git clone $wikiRepoUrl
 $wikiRepoPath = $pwd.Path + "/" + $wikiRepoDirectory
 cd $wikiRepoDirectory
@@ -243,15 +246,15 @@ git rm -rf * | Out-Null
 Pop-Location
 
 Push-Location $rootDocsFolder
-Write-Information "Processing source directory..."
+Write-ActionInfo "Processing source directory..."
 ProcessSourceDirectory
 Pop-Location
 
 Push-Location ..\$wikiRepoDirectory
-Write-Information "Post-processing wiki files..."
+Write-ActionInfo "Post-processing wiki files..."
 ProcessWikiDirectory
 
-Write-Information "Pushing wiki"
+Write-ActionInfo "Pushing wiki"
 git add .
 git commit -am "Sync Files"
 git push
