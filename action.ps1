@@ -239,7 +239,7 @@ git config --global user.name "GitHub Action"
 
 Push-Location ..
 Write-ActionInfo "Cloning wiki repo..."
-git clone "$repoCloneUrl.wiki.git"
+git clone "$repositoryCloneUrl.wiki.git"
 $wikiRepoPath = $pwd.Path + "/" + $wikiRepoDirectory
 cd $wikiRepoDirectory
 git rm -rf * | Out-Null
