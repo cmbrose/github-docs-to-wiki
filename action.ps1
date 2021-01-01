@@ -16,7 +16,7 @@ $convertRootReadmeToHomePage = Get-ActionInput convertRootReadmeToHomePage
 $useHeaderForWikiName = Get-ActionInput useHeaderForWikiName
 
 $repositoryName = $env:GITHUB_REPOSITORY
-$repositoryUrl = "https://$githubToken@github.com/$repositoryName"
+$repositoryUrl = "https://github.com/$repositoryName"
 
 $wikiRepoName = "$repositoryName.wiki"
 $wikiRepoUrl = "$repositoryUrl.wiki.git"
@@ -236,7 +236,7 @@ Function ProcessWikiFile()
 
 Push-Location ..
 Write-Information "Cloning wiki repo..."
-git clone $wikiRepoUrl
+git -c http.extraheader="AUTHORIZATION:bearer $githubToken" clone $wikiRepoUrl
 $wikiRepoPath = $pwd.Path + "/" + $wikiRepoName
 cd $wikiRepoName
 git rm -rf * | Out-Null
