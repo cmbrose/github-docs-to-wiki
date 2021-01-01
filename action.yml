@@ -28,7 +28,7 @@ inputs:
     required: false
     default: false
 
-outputs:
+outputs: []
 
 branding:
   color: purple
