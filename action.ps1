@@ -9,15 +9,16 @@ if (-not (Get-Module -ListAvailable GitHubActions)) {
 
 Import-Module GitHubActions
 
+$githubToken = Get-ActionInput githubToken -Required
 $defaultBranch  = Get-ActionInput defaultBranch
 $rootDocsFolder = Get-ActionInput root
 $convertRootReadmeToHomePage = Get-ActionInput convertRootReadmeToHomePage
 $useHeaderForWikiName = Get-ActionInput useHeaderForWikiName
 
 $repositoryName = $env:GITHUB_REPOSITORY
-$repositoryUrl = "https://github.com/$repositoryName"
+$repositoryUrl = "https://$githubToken@github.com/$repositoryName"
 
-$wikiRepoName = ($repositoryUrl -split "/")[-1] + ".wiki"
+$wikiRepoName = "$repositoryName.wiki"
 $wikiRepoUrl = "$repositoryUrl.wiki.git"
 
 if (-not $defaultBranch) {

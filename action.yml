@@ -4,6 +4,10 @@ description: Converts markdown content in a repository into a wiki.
 
 inputs:
 
+  githubToken:
+    description: The GitHub PAT, used to clone the wiki repo
+    required: true
+
   defaultBranch:
     description: The default branch name (master, main, etc)
     required: false
