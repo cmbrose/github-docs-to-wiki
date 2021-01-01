@@ -11,7 +11,7 @@ Import-Module GitHubActions
 
 $githubToken = Get-ActionInput githubToken -Required
 $defaultBranch  = Get-ActionInput defaultBranch
-$rootDocsFolder = Get-ActionInput root
+$rootDocsFolder = Get-ActionInput rootDocsFolder
 $convertRootReadmeToHomePage = Get-ActionInput convertRootReadmeToHomePage
 $useHeaderForWikiName = Get-ActionInput useHeaderForWikiName
 
