@@ -1,0 +1,39 @@
+name: github-docs-to-wiki
+author: cmbrose
+description: Converts markdown content in a repository into a wiki.
+
+inputs:
+
+  repositoryUrl:
+    description: The url of the repository being operated on
+    required: true
+
+  defaultBranch:
+    description: The default branch name (master, main, etc)
+    required: false
+    default: The value returned by `git branch --show-current`
+
+  rootDocsFolder:
+    description: A directory within the repository where the docs are located
+    required: false
+    default: The repository's root
+
+  convertRootReadmeToHomePage:
+    description: If true, renames the README.md file to Home.md in the wiki (the wiki homepage)
+    required: false
+    default: false
+
+  useHeaderForWikiName:
+    description: If true, names wiki pages according to the top header of the source file (using `#`)
+    required: false
+    default: false
+
+outputs:
+
+branding:
+  color: purple
+  icon: terminal
+
+runs:
+  using: node12
+  main: _init/index.js
