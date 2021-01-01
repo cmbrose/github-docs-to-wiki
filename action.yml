@@ -11,12 +11,10 @@ inputs:
   defaultBranch:
     description: The default branch name (master, main, etc)
     required: false
-    default: The value returned by `git branch --show-current`
 
   rootDocsFolder:
     description: A directory within the repository where the docs are located
     required: false
-    default: The repository's root
 
   convertRootReadmeToHomePage:
     description: If true, renames the README.md file to Home.md in the wiki (the wiki homepage)
