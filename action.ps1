@@ -16,10 +16,10 @@ $convertRootReadmeToHomePage = Get-ActionInput convertRootReadmeToHomePage
 $useHeaderForWikiName = Get-ActionInput useHeaderForWikiName
 
 $repositoryName = $env:GITHUB_REPOSITORY
-$repositoryUrl = "https://$githubToken@github.com/$repositoryName"
+$repositoryUrl = "https://github.com/$repositoryName"
+$repositoryCloneUrl = "https://$githubToken@github.com/$repositoryName"
 
 $wikiRepoDirectory = ($repositoryName -split "/")[-1] + ".wiki"
-$wikiRepoUrl = "$repositoryUrl.wiki.git"
 
 if (-not $defaultBranch) {
     $defaultBranch = git branch --show-current
@@ -239,7 +239,7 @@ git config --global user.name "GitHub Action"
 
 Push-Location ..
 Write-ActionInfo "Cloning wiki repo..."
-git clone $wikiRepoUrl
+git clone "$repoCloneUrl.wiki.git"
 $wikiRepoPath = $pwd.Path + "/" + $wikiRepoDirectory
 cd $wikiRepoDirectory
 git rm -rf * | Out-Null
