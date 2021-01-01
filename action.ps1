@@ -234,8 +234,8 @@ Function ProcessWikiFile()
     Set-Content -Path $file.FullName -Value $content -Force
 }
 
-git config --local user.email "action@github.com"
-git config --local user.name "GitHub Action"
+git config --global user.email "action@github.com"
+git config --global user.name "GitHub Action"
 
 Push-Location ..
 Write-ActionInfo "Cloning wiki repo..."
