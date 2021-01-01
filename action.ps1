@@ -21,7 +21,8 @@ $repositoryCloneUrl = "https://$githubToken@github.com/$repositoryName"
 
 $wikiRepoDirectory = ($repositoryName -split "/")[-1] + ".wiki"
 
-if (-not $defaultBranch) {
+if (-not $defaultBranch)
+{
     $defaultBranch = git branch --show-current
 }
 
