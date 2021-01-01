@@ -9,7 +9,6 @@ if (-not (Get-Module -ListAvailable GitHubActions)) {
 
 Import-Module GitHubActions
 
-## Pull in some inputs
 $repositoryUrl  = Get-ActionInput repositoryUrl -Required
 $defaultBranch  = Get-ActionInput defaultBranch
 $rootDocsFolder = Get-ActionInput root
