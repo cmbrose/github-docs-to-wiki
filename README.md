@@ -22,5 +22,5 @@ Syncs markdown documentation files in a repo to its wiki
    2. If `useHeaderForWikiName` is set, check the file for a header and, if present, remove that line and set the wiki name accordingly
    3. Otherwise set the wiki name as the path to the file with `/` converted to `__`
    4. Output the new content to the wiki
-3. Scan the wiki directory and update any links where the name was overridden in `1.2`
+3. Scan the wiki directory and update any links where the name was overridden in `2.ii`
 4. Commit and push the wiki files
