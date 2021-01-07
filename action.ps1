@@ -215,7 +215,7 @@ Function AddCustomHeader()
     $sourceFileLink = "$repositoryUrl/$($directories -join "/")/$($file.Name)"
     $header = $header -replace "{sourceFileLink}", $sourceFileLink
 
-    "$header`n`n$content"
+    @($header, "`n", "`n") + $content
 }
 
 Function ProcessWikiDirectory()
