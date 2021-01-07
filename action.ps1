@@ -17,6 +17,7 @@ $useHeaderForWikiName = Get-ActionInput useHeaderForWikiName
 $customWikiFileHeaderFormat = Get-ActionInput customWikiFileHeaderFormat
 
 $repositoryName = $env:GITHUB_REPOSITORY
+
 $repositoryUrl = "https://github.com/$repositoryName"
 $repositoryCloneUrl = "https://$githubToken@github.com/$repositoryName"
 
@@ -212,7 +213,8 @@ Function AddCustomHeader()
 
     $header = $customWikiFileHeaderFormat
 
-    $sourceFileLink = "$repositoryUrl/blob/$defaultBranch/$($directories -join "/")/$($fileName)"
+    $relativePath = "$rootDocsFolder/$($directories -join "/")"
+    $sourceFileLink = "$repositoryUrl/blob/$defaultBranch/$relativePath/$($fileName)"
     $header = $header -replace "{sourceFileLink}", $sourceFileLink
 
     @($header, "`n", "`n") + $content
