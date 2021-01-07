@@ -133,7 +133,7 @@ Function UpdateFileLinks()
         $text = $match.Groups[1].Value
         $link = $match.Groups[2].Value
 
-        if ($link -like "http*")
+        if (($link -like "http*") -or ($link -like "onenote*"))
         {
             # Absolute link, no change
             Write-Verbose "Link $link is already absolute, nothing to do"
@@ -154,12 +154,14 @@ Function UpdateFileLinks()
             }
         }
 
-        if (($upDirs -le $directories.Count) -and ($link -like "*.md"))
+        $isMarkdownLink = ($link -split "#")[0] -like "*.md"
+
+        if (($upDirs -le $directories.Count) -and ($isMarkdownLink))
         {
             # Link to another doc which should now point to a wiki file
 
             $relativeWikiPath = @($directories | Select-Object -First ($directories.Count - $upDirs)) + @($path)
-            $wikiFileName = ($relativeWikiPath -join "__") -replace ".md$", ""
+            $wikiFileName = ($relativeWikiPath -join "__") -replace ".md", ""
     
             Write-Verbose "Link $link updated to $wikiFileName"
             return "[$text]($wikiFileName)"
@@ -178,7 +180,7 @@ Function UpdateFileLinks()
 
         $absoluteLink = $repositoryUrl + "/blob/$defaultBranch/" + $relativePathFromRoot + ($path -join "/")
 
-        if ($link -like "*.md")
+        if ($isMarkdownLink)
         {
             Write-Verbose "Link $link is outside the docs root, updating to absolute link $absoluteLink"
         }
