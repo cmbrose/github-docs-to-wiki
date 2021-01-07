@@ -26,6 +26,14 @@ inputs:
     required: false
     default: false
 
+  customWikiFileHeaderFormat:
+    description: |
+      If set, inserts a header at the top of each wiki file with the given format
+      Supports the following format subsitutions:
+        - {sourceFileLink}: the absolute url to the source file in the repo
+    required: false
+    default:
+
 branding:
   color: purple
   icon: terminal

@@ -14,6 +14,7 @@ $defaultBranch  = Get-ActionInput defaultBranch
 $rootDocsFolder = Get-ActionInput rootDocsFolder
 $convertRootReadmeToHomePage = Get-ActionInput convertRootReadmeToHomePage
 $useHeaderForWikiName = Get-ActionInput useHeaderForWikiName
+$customWikiFileHeaderFormat = Get-ActionInput customWikiFileHeaderFormat
 
 $repositoryName = $env:GITHUB_REPOSITORY
 $repositoryUrl = "https://github.com/$repositoryName"
@@ -91,6 +92,11 @@ Function ProcessSourceFile()
         $outputFileName = $override.FileName        
 
         $content = $override.NewContent
+    }
+
+    if ($customWikiFileHeaderFormat)
+    {
+        $content = AddCustomHeader $content
     }
 
     $outputPath = $wikiRepoPath + "/" + $outputFileName
@@ -197,6 +203,19 @@ Function UpdateFileLinks()
     $linkRegex = [regex]"\[([^\]]+)\]\(([^\)]+)\)"
 
     $content | % { $linkRegex.Replace($_, $evaluator) }
+}
+
+Function AddCustomHeader()
+{
+    [cmdletbinding()]
+    param([string]$content, $file, [string[]]$directories)
+
+    $header = $customWikiFileHeaderFormat
+
+    $sourceFileLink = "$repositoryUrl/$($directories -join "/")/$($file.Name)"
+    $header = $header -replace "{sourceFileLink}", $sourceFileLink
+
+    "$header`n`n$content"
 }
 
 Function ProcessWikiDirectory()
