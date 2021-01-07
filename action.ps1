@@ -212,7 +212,7 @@ Function AddCustomHeader()
 
     $header = $customWikiFileHeaderFormat
 
-    $sourceFileLink = "$repositoryUrl/$($directories -join "/")/$($file.Name)"
+    $sourceFileLink = "$repositoryUrl/blob/$defaultBranch/$($directories -join "/")/$($file.Name)"
     $header = $header -replace "{sourceFileLink}", $sourceFileLink
 
     @($header, "`n", "`n") + $content
