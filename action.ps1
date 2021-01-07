@@ -96,7 +96,7 @@ Function ProcessSourceFile()
 
     if ($customWikiFileHeaderFormat -and ($file.Name -ne "_sidebar.md"))
     {
-        $content = AddCustomHeader $content $file $directories
+        $content = AddCustomHeader $file.Name $directories $content
     }
 
     $outputPath = $wikiRepoPath + "/" + $outputFileName
@@ -208,11 +208,11 @@ Function UpdateFileLinks()
 Function AddCustomHeader()
 {
     [cmdletbinding()]
-    param($content, $file, [string[]]$directories)
+    param($filename, [string[]]$directories, $content)
 
     $header = $customWikiFileHeaderFormat
 
-    $sourceFileLink = "$repositoryUrl/blob/$defaultBranch/$($directories -join "/")/$($file.Name)"
+    $sourceFileLink = "$repositoryUrl/blob/$defaultBranch/$($directories -join "/")/$($fileName)"
     $header = $header -replace "{sourceFileLink}", $sourceFileLink
 
     @($header, "`n", "`n") + $content
