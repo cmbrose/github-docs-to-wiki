@@ -94,7 +94,7 @@ Function ProcessSourceFile()
         $content = $override.NewContent
     }
 
-    if ($customWikiFileHeaderFormat)
+    if ($customWikiFileHeaderFormat -and ($file.Name -ne "_sidebar.md"))
     {
         $content = AddCustomHeader $content $file $directories
     }
