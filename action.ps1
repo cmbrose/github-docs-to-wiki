@@ -96,7 +96,7 @@ Function ProcessSourceFile()
 
     if ($customWikiFileHeaderFormat)
     {
-        $content = AddCustomHeader $content
+        $content = AddCustomHeader $content $file $directories
     }
 
     $outputPath = $wikiRepoPath + "/" + $outputFileName
@@ -208,7 +208,7 @@ Function UpdateFileLinks()
 Function AddCustomHeader()
 {
     [cmdletbinding()]
-    param([string]$content, $file, [string[]]$directories)
+    param($content, $file, [string[]]$directories)
 
     $header = $customWikiFileHeaderFormat
 
