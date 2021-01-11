@@ -10,7 +10,8 @@ Syncs markdown documentation files in a repo to its wiki
 | rootDocsFolder | Relative path within the repo to the root documentation folder | No, default is the repo's root |
 | convertRootReadmeToHomePage | If true, the `README.md` file at the root of the repo will be renamed to `Home.md` in the wiki so that it is used as the wiki homepage | No, default is false |
 | useHeaderForWikiName | If true, will extract the top-line header (denoted by a single `#`) and use that as the wiki page's name. Note: if this results in a name collision the sync will fail | No, default is false and wiki names will be the relative path to the file with `/` converted to `__` (e.g. `path/to/doc.md` becomes `path__to_doc.md`) |
-| useHeaderForWikiName | If set, inserts a header at the top of each wiki file with the given format<br/>Supports the following format subsitutions:<br/>- `{sourceFileLink}`: the absolute url to the source file in the repo | No, default will not add a header |
+| customWikiFileHeaderFormat | If set, inserts a header at the top of each wiki file with the given format<br/>Supports the following format subsitutions:<br/>- `{sourceFileLink}`: the absolute url to the source file in the repo | No, default will not add a header |
+| customCommitMessageFormat | If set, uses the given format for the commit message to the wiki. Useful to correlate changes to the source.<br/>Supports the following format subsitutions:<br/>- `{commitMessage}`: the latest commit message for HEAD<br/>- `{shaFull}`: the full SHA of HEAD<br/>- `{shaShort}`: the short SHA of HEAD | No, default is `"Sync Files"` |
 
 ## How it works
 

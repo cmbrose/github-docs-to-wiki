@@ -15,6 +15,7 @@ $rootDocsFolder = Get-ActionInput rootDocsFolder
 $convertRootReadmeToHomePage = Get-ActionInput convertRootReadmeToHomePage
 $useHeaderForWikiName = Get-ActionInput useHeaderForWikiName
 $customWikiFileHeaderFormat = Get-ActionInput customWikiFileHeaderFormat
+$customCommitMessageFormat = Get-ActionInput customCommitMessageFormat
 
 $repositoryName = $env:GITHUB_REPOSITORY
 
@@ -22,6 +23,8 @@ $repositoryUrl = "https://github.com/$repositoryName"
 $repositoryCloneUrl = "https://$githubToken@github.com/$repositoryName"
 
 $wikiRepoDirectory = ($repositoryName -split "/")[-1] + ".wiki"
+
+$sourceRepoDirectory = $pwd.Path
 
 if (-not $defaultBranch)
 {
@@ -258,6 +261,30 @@ Function ProcessWikiFile()
     Set-Content -Path $file.FullName -Value $content -Force
 }
 
+Function GetWikiCommitMessage()
+{
+    if (-not $customCommitMessageFormat)
+    {
+        return "Sync Files"
+    }
+
+    Push-Location $sourceRepoDirectory
+
+    $commitMessage = $customCommitMessageFormat
+
+    $message = git log -1 --pretty=%B
+    $commitMessage = $commitMessage -replace "{commitMessage}", $message
+
+    $shaFull = git rev-parse HEAD
+    $commitMessage = $commitMessage -replace "{shaFull}", $shaFull
+
+    $shaShort = git rev-parse --short HEAD
+    $commitMessage = $commitMessage -replace "{shaShort}", $shaShort
+
+    Pop-Location
+    return $commitMessage
+}
+
 git config --global user.email "action@github.com"
 git config --global user.name "GitHub Action"
 
@@ -278,8 +305,10 @@ Push-Location ..\$wikiRepoDirectory
 Write-ActionInfo "Post-processing wiki files..."
 ProcessWikiDirectory
 
+$commitMessage = GetWikiCommitMessage
+
 Write-ActionInfo "Pushing wiki"
 git add .
-git commit -am "Sync Files"
+git commit -am $commitMessage
 git push
 Pop-Location

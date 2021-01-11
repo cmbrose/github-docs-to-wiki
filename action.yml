@@ -32,7 +32,15 @@ inputs:
       Supports the following format subsitutions:
         - {sourceFileLink}: the absolute url to the source file in the repo
     required: false
-    default:
+
+  customCommitMessageFormat:
+    description: |
+      If set, uses the given format for the commit message to the wiki. Useful to correlate changes to the source.
+      Supports the following format subsitutions:
+        - {commitMessage}: the latest commit message for HEAD
+        - {shaFull}: the full SHA of HEAD
+        - {shaShort}: the short SHA of HEAD
+    required: false
 
 branding:
   color: purple
