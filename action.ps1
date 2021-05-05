@@ -149,6 +149,13 @@ Function UpdateFileLinks()
             Write-Verbose "Link $link is already absolute, nothing to do"
             return "[$text]($link)"
         }
+
+        if ($link -like "#*")
+        {
+            # Header anchor, no change
+            Write-Verbose "Link $link is to an anchor within the page (generally a header), nothing to do"
+            return "[$text]($link)"
+        }
         
         $upDirs = 0
         $path = @()
