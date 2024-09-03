@@ -94,7 +94,7 @@ jobs:
     steps:
 
       - name: download distributable artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4.1.7
         with:
           name: dist
       
